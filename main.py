@@ -6,9 +6,11 @@ from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watsonx_ai.foundation_models import ModelInference
 from ibm_watsonx_ai.metanames import GenTextParamsMetaNames as GenParams
 from dotenv import load_dotenv
+
 # Load environment variables
 load_dotenv()
 app = Flask(__name__)
+
 # Configure IBM Watson Speech to Text
 def configure_speech_to_text():
     authenticator = IAMAuthenticator(os.getenv('SPEECH_TO_TEXT_API_KEY'))
@@ -16,10 +18,10 @@ def configure_speech_to_text():
     speech_to_text.set_service_url(os.getenv('SPEECH_TO_TEXT_URL'))
     return speech_to_text
 # Configure WatsonX model for text generation
-WATSONX_URL = os.getenv('WATSONX_URL', "https://us-south.ml.cloud.ibm.com")
+WATSONX_URL = os.getenv('WATSONX_URL')
 def configure_watsonx():
     credentials = {
-        "url": WATSONX_URL,
+        "url": os.getenv(WATSONX_URL, "https://us-south.ml.cloud.ibm.com"),
         "apikey": os.getenv("WATSONX_API_KEY")
     }
     project_id = os.getenv("PROJECT_ID")
@@ -38,6 +40,7 @@ def configure_watsonx():
         project_id=project_id
     )
     return model
+
 # Process transcript with speaker identification
 def process_transcript_with_speakers(result):
     transcript = []
@@ -51,13 +54,12 @@ def process_transcript_with_speakers(result):
         if 'alternatives' in utterance and len(utterance['alternatives']) > 0:
             transcript.append(utterance['alternatives'][0]['transcript'])
     return ' '.join(transcript)
+
 # Summarize transcript with WatsonX model with structured output
 async def generate_structured_summary_async(model, transcript):
     prompt = (
-        "Extract and concisely present the following from the transcript chunk: 1) New topics or developments, "
-        "2) Key decisions or action items (if any), 3) Unresolved issues or ongoing discussions. Include any "
-        "available context indicators (e.g., time stamps, speaker changes). Prioritize new information over repetition."
-        "Analyze the transcript below and provide a structured meeting summary with the following sections:\n\n"
+        "Provide a structured meeting summary with the following sections without additional introductory text, start directly with 'Cotetext' :\n\n"
+        "1. **Context**: Briefly describe the meeting purpose and participants.\n"
         "1. **Context**: Briefly describe the meeting purpose and participants.\n"
         "2. **Key Points**: Summarize main topics and discussion points.\n"
         "3. **Action Items**: List assigned tasks.\n"
@@ -68,17 +70,20 @@ async def generate_structured_summary_async(model, transcript):
     )
     response = await asyncio.to_thread(model.generate, prompt)
     return response.get("results")[0]["generated_text"]
+
 @app.route('/')
 def home():
     return render_template('index.html')
+
 @app.route('/generateMeetingNotes', methods=['POST'])
 def generate_meeting_notes():
     identify_speakers = request.form.get("identify_speakers", "off") == "on"
-    option = request.form.get("option", "Manual Transcript")
+    option = request.form.get("input_type", "Manual Transcript")
     model = configure_watsonx()
+
     # Check if input is an audio file
-    if option == "Audio File" and 'file' in request.files:
-        audio_file = request.files['file']
+    if option == "Audio File" and 'audio_file' in request.files:
+        audio_file = request.files['audio_file']
         try:
             stt = configure_speech_to_text()
             result = stt.recognize(
@@ -87,34 +92,31 @@ def generate_meeting_notes():
                 model='en-US_BroadbandModel',
                 speaker_labels=identify_speakers
             ).get_result()
+            
             # Process transcript with or without speaker identification
             transcript = process_transcript_with_speakers(result) if identify_speakers else ' '.join(
                 [r['alternatives'][0]['transcript'] for r in result['results']]
             )
             summary = asyncio.run(generate_structured_summary_async(model, transcript))
             return jsonify({"transcript": transcript, "summary": summary})
+        
         except Exception as e:
             return jsonify({"error": f"Error during transcription or summarization: {str(e)}"}), 500
+
     # Manual Transcript Input
-    elif option == "Manual Transcript" and request.form.get("transcript"):
-        transcript = request.form.get("transcript")
+    elif option == "Manual Transcript" and request.form.get("manual_transcript"):
+        transcript = request.form.get("manual_transcript")
         try:
             summary = asyncio.run(generate_structured_summary_async(model, transcript))
             return jsonify({"transcript": transcript, "summary": summary})
+        
         except Exception as e:
             return jsonify({"error": f"Error during summarization: {str(e)}"}), 500
+
     else:
         return jsonify({"error": "Please upload an audio file or enter a transcript to proceed."}), 400
+
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-
-
-
-
-
 
 
