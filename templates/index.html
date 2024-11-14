@@ -1,95 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meeting Notes Generator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watson KeyNotes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
-body {
-    background-color: #f4efef;
+        body {
     font-family: Arial, sans-serif;
-}
-h1 {
+    background-color: #f4f4f9;
     color: #333;
+}
+
+.container {
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1 {
+    color: #0072c3;
     text-align: center;
 }
-.container {
-    width: 80%;
-    margin: 0 auto;
-}
-.button {
-    background-color: #1e6dec;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
-.button:hover {
-    background-color: #45a049;
-}
-    </style>
 
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="file"],
+select,
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    display: inline-block;
+    background-color: #0072c3;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #005f99;
+}
+
+#output {
+    margin-top: 20px;
+}
+
+pre {
+    background-color: #f7f7f9;
+    padding: 15px;
+    border-radius: 4px;
+    white-space: pre-wrap;
+}
+
+    </style>
 </head>
 <body>
-    <h1>Watson KeyNotes</h1>
+    <div class="container">
+        <h1>Watson KeyNotes</h1>
+        
+        <form id="meetingForm" action="/generateMeetingNotes" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="input_type">Input Type:</label>
+                <select name="input_type" id="input_type" onchange="toggleInputFields()">
+                    <option value="Audio File">Audio File</option>
+                    <option value="Manual Transcript">Manual Transcript</option>
+                </select>
+            </div>
 
-    <form id="transcriptionForm" method="POST" enctype="multipart/form-data" action="/transcribe">
-        <h3>Input Options</h3>
-        <label for="option">Choose input type:</label>
-        <select name="option" id="option" required>
-            <option value="Audio File">Audio File</option>
-            <option value="Manual Transcript">Manual Transcript</option>
-        </select>
+            <div class="form-group" id="audioUpload">
+                <label for="audio_file">Upload Audio File:</label>
+                <input type="file" name="audio_file" accept=".wav, .mp3, .flac">
+            </div>
 
-        <br><br>
-        <div id="audioInput" style="display: block;">
-            <label>Upload Audio File:</label>
-            <input type="file" name="file" accept=".wav, .mp3, .flac">
-        </div>
+            <div class="form-group" id="manualTranscript" style="display: none;">
+                <label for="manual_transcript">Enter Transcript:</label>
+                <textarea name="manual_transcript" id="manual_transcript" rows="6" placeholder="Type transcript here..."></textarea>
+            </div>
 
-        <div id="textInput" style="display: none;">
-            <label>Enter Transcript:</label>
-            <textarea name="transcript" rows="10" cols="40"></textarea>
-        </div>
+            <div class="form-group">
+                <label for="identify_speakers">Identify Speakers:</label>
+                <input type="checkbox" name="identify_speakers" id="identify_speakers">
+            </div>
 
-        <br><br>
-        <label for="identify_speakers">Identify Speakers:</label>
-        <input type="checkbox" id="identify_speakers" name="identify_speakers">
+            <button type="button" onclick="submitForm()">Generate Meeting Notes</button>
+        </form>
 
-        <br><br>
-        <button type="submit">Generate Meeting Notes</button>
-    </form>
+        <div id="output" style="display: none;">
+            <h2>Transcript</h2>
+            <pre id="transcript"></pre>
+            
+            <h2>Summary</h2>
+            <pre id="summary"></pre>
+        </div>
+    </div>
 
-    <h3>Results</h3>
-    <pre id="result"></pre>
+    <script>
+        function toggleInputFields() {
+            const inputType = document.getElementById('input_type').value;
+            document.getElementById('audioUpload').style.display = inputType === 'Audio File' ? 'block' : 'none';
+            document.getElementById('manualTranscript').style.display = inputType === 'Manual Transcript' ? 'block' : 'none';
+        }
 
-    <script>
-        document.getElementById("option").addEventListener("change", function () {
-            const audioInput = document.getElementById("audioInput");
-            const textInput = document.getElementById("textInput");
+        async function submitForm() {
+            const form = document.getElementById('meetingForm');
+            const formData = new FormData(form);
 
-            if (this.value === "Audio File") {
-                audioInput.style.display = "block";
-                textInput.style.display = "none";
-            } else {
-                audioInput.style.display = "none";
-                textInput.style.display = "block";
-            }
-        });
-
-        document.getElementById("transcriptionForm").onsubmit = async function (event) {
-            event.preventDefault();
-
-            const formData = new FormData(this);
-            const response = await fetch("/transcribe", { method: "POST", body: formData });
-            const data = await response.json();
-
-            if (data.error) {
-                document.getElementById("result").textContent = "Error: " + data.error;
-            } else {
-                document.getElementById("result").textContent = "Summary:\n" + data.summary;
-            }
-        };
-    </script>
+            try {
+                const response = await fetch('/generateMeetingNotes', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('transcript').textContent = data.transcript;
+                    document.getElementById('summary').textContent = data.summary;
+                    document.getElementById('output').style.display = 'block';
+                } else {
+                    alert('Error: ' + (await response.json()).error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        }
+    </script>
 </body>
 </html>
