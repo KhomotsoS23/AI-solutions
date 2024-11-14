@@ -9,20 +9,19 @@ from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
-
 app = Flask(__name__)
 
 # Configure IBM Watson Speech to Text
 def configure_speech_to_text():
     authenticator = IAMAuthenticator(os.getenv('SPEECH_TO_TEXT_API_KEY'))
     speech_to_text = SpeechToTextV1(authenticator=authenticator)
-    speech_to_text.set_service_url('https://api.eu-de.speech-to-text.watson.cloud.ibm.com/instances/39067507-f327-432f-bd98-f11e18f7c539')
+    speech_to_text.set_service_url(os.getenv('SPEECH_TO_TEXT_URL'))
     return speech_to_text
-
 # Configure WatsonX model for text generation
+WATSONX_URL = os.getenv('WATSONX_URL')
 def configure_watsonx():
     credentials = {
-        "url":"https://us-south.ml.cloud.ibm.com/ml/v1/text/generation?version=2023-05-2", 
+        "url": os.getenv(WATSONX_URL, "https://us-south.ml.cloud.ibm.com"),
         "apikey": os.getenv("WATSONX_API_KEY")
     }
     project_id = os.getenv("PROJECT_ID")
