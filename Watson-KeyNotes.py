@@ -21,10 +21,10 @@ def configure_speech_to_text():
 WATSONX_URL = os.getenv('WATSONX_URL')
 def configure_watsonx():
     credentials = {
-        "url": os.getenv("https://us-south.ml.cloud.ibm.com/ml/v1/text/generation?version=2023-05-29", "https://us-south.ml.cloud.ibm.com"),
+        "url": os.getenv(WATSONX_URL, "https://us-south.ml.cloud.ibm.com"),
         "apikey": os.getenv("WATSONX_API_KEY")
     }
-    project_id = "e296c3dc-7e74-4482-81b5-af30fbdd40ba"
+    project_id = os.getenv("PROJECT_ID")
     #"google/flan-ul2",
 	#"project_id": "e296c3dc-7e74-4482-81b5-af30fbdd40ba"
     model_id = "ibm/granite-13b-chat-v2"
