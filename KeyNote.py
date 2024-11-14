@@ -13,12 +13,13 @@ load_dotenv()
 def configure_speech_to_text():
     authenticator = IAMAuthenticator(os.getenv('SPEECH_TO_TEXT_API_KEY'))
     speech_to_text = SpeechToTextV1(authenticator=authenticator)
-    speech_to_text.set_service_url('https://api.eu-de.speech-to-text.watson.cloud.ibm.com/instances/39067507-f327-432f-bd98-f11e18f7c539')
+    speech_to_text.set_service_url(os.getenv('SPEECH_TO_TEXT_URL'))
     return speech_to_text
 # Configure WatsonX model for text generation
+WATSONX_URL = os.getenv('WATSONX_URL')
 def configure_watsonx():
     credentials = {
-        "url": os.getenv("https://us-south.ml.cloud.ibm.com/ml/v1/text/generation?version=2023-05-2", "https://us-south.ml.cloud.ibm.com"),
+        "url": os.getenv(WATSONX_URL, "https://us-south.ml.cloud.ibm.com"),
         "apikey": os.getenv("WATSONX_API_KEY")
     }
     project_id = os.getenv("PROJECT_ID")
@@ -54,7 +55,7 @@ def process_transcript_with_speakers(result):
 async def generate_structured_summary_async(model, transcript):
     prompt = (
         "Extract and concisely present the following from the transcript chunk: 1) New topics or developments, 2) Key decisions or action items (if any), 3) Unresolved issues or ongoing discussions. Include any available context indicators (e.g., time stamps, speaker changes). Prioritize new information over repetition."
-        "Analyze the transcript below and provide a structured meeting summary with the following sections:\n\n"
+        "Provide a structured meeting summary with the following sections without additional introductory text, start directly with 'Cotetext' :\n\n"
         "1. **Context**: Briefly describe the meeting purpose and participants.\n"
         "2. **Key Points**: Summarize main topics and discussion points.\n"
         "3. **Action Items**: List assigned tasks.\n"
@@ -67,6 +68,7 @@ async def generate_structured_summary_async(model, transcript):
     return response.get("results")[0]["generated_text"]
 # Streamlit app setup with structured summary for manual transcript
 def main():
+
     st.title("Watson KeyNotes")
     # Toggle for speaker identification
     identify_speakers = st.checkbox("Identify Speakers", value=True)

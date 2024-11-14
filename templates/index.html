@@ -1,45 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watson KeyNotes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Notes Generator</title>
+    <style>
+body {
+    background-color: #f4efef;
+    font-family: Arial, sans-serif;
+}
+h1 {
+    color: #333;
+    text-align: center;
+}
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+.button {
+    background-color: #1e6dec;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: #45a049;
+}
+    </style>
+
 </head>
 <body>
-    <h1>Watson KeyNotes</h1>
-    <form action="/generateMeetingNotes" method="post" enctype="multipart/form-data">
-        <label for="input_type">Input Type:</label>
-        <select name="input_type" id="input_type">
-            <option value="Audio File">Audio File</option>
-            <option value="Manual Transcript">Manual Transcript</option>
-        </select>
-        <br>
-        <label for="identify_speakers">Identify Speakers</label>
-        <input type="checkbox" name="identify_speakers" id="identify_speakers">
-        <br>
-        <div id="audio-input">
-            <label for="audio_file">Upload Audio File:</label>
-            <input type="file" name="audio_file" accept=".wav, .mp3, .flac">
-        </div>
-        <div id="manual-input">
-            <label for="manual_transcript">Manual Transcript:</label>
-            <textarea name="manual_transcript" rows="10" cols="30"></textarea>
-        </div>
-        <button type="submit">Generate Meeting Notes</button>
-    </form>
-    <script>
-        document.getElementById("input_type").addEventListener("change", function() {
-            const audioInput = document.getElementById("audio-input");
-            const manualInput = document.getElementById("manual-input");
-            if (this.value === "Audio File") {
-                audioInput.style.display = "block";
-                manualInput.style.display = "none";
-            } else {
-                audioInput.style.display = "none";
-                manualInput.style.display = "block";
-            }
-        });
-        document.getElementById("input_type").dispatchEvent(new Event("change"));
-    </script>
+    <h1>Watson KeyNotes</h1>
+
+    <form id="transcriptionForm" method="POST" enctype="multipart/form-data" action="/transcribe">
+        <h3>Input Options</h3>
+        <label for="option">Choose input type:</label>
+        <select name="option" id="option" required>
+            <option value="Audio File">Audio File</option>
+            <option value="Manual Transcript">Manual Transcript</option>
+        </select>
+
+        <br><br>
+        <div id="audioInput" style="display: block;">
+            <label>Upload Audio File:</label>
+            <input type="file" name="file" accept=".wav, .mp3, .flac">
+        </div>
+
+        <div id="textInput" style="display: none;">
+            <label>Enter Transcript:</label>
+            <textarea name="transcript" rows="10" cols="40"></textarea>
+        </div>
+
+        <br><br>
+        <label for="identify_speakers">Identify Speakers:</label>
+        <input type="checkbox" id="identify_speakers" name="identify_speakers">
+
+        <br><br>
+        <button type="submit">Generate Meeting Notes</button>
+    </form>
+
+    <h3>Results</h3>
+    <pre id="result"></pre>
+
+    <script>
+        document.getElementById("option").addEventListener("change", function () {
+            const audioInput = document.getElementById("audioInput");
+            const textInput = document.getElementById("textInput");
+
+            if (this.value === "Audio File") {
+                audioInput.style.display = "block";
+                textInput.style.display = "none";
+            } else {
+                audioInput.style.display = "none";
+                textInput.style.display = "block";
+            }
+        });
+
+        document.getElementById("transcriptionForm").onsubmit = async function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const response = await fetch("/transcribe", { method: "POST", body: formData });
+            const data = await response.json();
+
+            if (data.error) {
+                document.getElementById("result").textContent = "Error: " + data.error;
+            } else {
+                document.getElementById("result").textContent = "Summary:\n" + data.summary;
+            }
+        };
+    </script>
 </body>
 </html>
