@@ -7,71 +7,70 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
         body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-}
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+        }
 
-.container {
-    width: 60%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
 
-h1 {
-    color: #0072c3;
-    text-align: center;
-}
+        h1 {
+            color: #0072c3;
+            text-align: center;
+        }
 
-.form-group {
-    margin-bottom: 15px;
-}
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
 
-input[type="file"],
-select,
-textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
+        input[type="file"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
 
-button {
-    display: inline-block;
-    background-color: #0072c3;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
+        button {
+            display: inline-block;
+            background-color: #0072c3;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
 
-button:hover {
-    background-color: #005f99;
-}
+        button:hover {
+            background-color: #005f99;
+        }
 
-#output {
-    margin-top: 20px;
-}
+        #output {
+            margin-top: 20px;
+        }
 
-pre {
-    background-color: #f7f7f9;
-    padding: 15px;
-    border-radius: 4px;
-    white-space: pre-wrap;
-}
-
+        pre {
+            background-color: #f7f7f9;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
     </style>
 </head>
 <body>
@@ -106,8 +105,8 @@ pre {
         </form>
 
         <div id="output" style="display: none;">
-            <h2>Transcript</h2>
-            <pre id="transcript"></pre>
+            <h2 id="transcriptTitle" style="display: none;">Transcript</h2>
+            <pre id="transcript" style="display: none;"></pre>
             
             <h2>Summary</h2>
             <pre id="summary"></pre>
@@ -124,6 +123,7 @@ pre {
         async function submitForm() {
             const form = document.getElementById('meetingForm');
             const formData = new FormData(form);
+            const inputType = document.getElementById('input_type').value;
 
             try {
                 const response = await fetch('/generateMeetingNotes', {
@@ -133,7 +133,17 @@ pre {
                 
                 if (response.ok) {
                     const data = await response.json();
-                    document.getElementById('transcript').textContent = data.transcript;
+                    
+                    // Only display transcript if input type is "Audio File"
+                    if (inputType === 'Audio File') {
+                        document.getElementById('transcript').textContent = data.transcript;
+                        document.getElementById('transcript').style.display = 'block';
+                        document.getElementById('transcriptTitle').style.display = 'block';
+                    } else {
+                        document.getElementById('transcript').style.display = 'none';
+                        document.getElementById('transcriptTitle').style.display = 'none';
+                    }
+
                     document.getElementById('summary').textContent = data.summary;
                     document.getElementById('output').style.display = 'block';
                 } else {
