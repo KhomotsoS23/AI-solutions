@@ -121,6 +121,6 @@ def generate_meeting_notes():
         return jsonify({"error": "Please upload an audio file or enter a transcript to proceed."}), 400
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
 
 
