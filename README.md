@@ -15,6 +15,8 @@ To run this application, you need the following installed on your system:
 
 **Clone the repository:** 
 
+Note: run the commands in the terminal or CL of your machine.
+
 ```bashh
 git clone https://github.com/KhomotsoS23/AI-Solutions.git 
 cd AI-Solutions
