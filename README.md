@@ -1,7 +1,6 @@
 # Watson-KeyNotes
 
-Watson-KeyNotes is a Flask-based application designed to help users interact with IBM Watsonx.ai using their own API credentials. The app allows users to input their data and retrieve insights powered by IBM Watson's capabilities.
-
+Watson-KeyNotes is a Flask-based application designed to help users get a comprehensive summary of all the discussion,decision, action items and conclusion of a meeting. The application uses IBM Watson Speech to Text and Watsonx.ai services to transcribe audio files and generate summaries, respectively.
 
 
 # Instructions for Running the application locally
@@ -16,25 +15,54 @@ To run this application, you need the following installed on your system:
 
 **Clone the repository:** 
 
-`git clone https://github.com/KhomotsoS23/AI-Solutions.git 
-cd AI-Solutions`
+```bashh
+git clone https://github.com/KhomotsoS23/AI-Solutions.git 
+cd AI-Solutions
+```
 
 Update the .env file with your own credentials: 
 
-    - SPEECH_TO_TEXT_API_KEY= your_speech_to_text_api_key
-    - SPEECH_TO_TEXT_URL= your_speech_to_text_url
-    - WATSONX_API_KEY= your_watsonx_api_key
-    - WATSONX_URL= your_watsonx_url
-    - PROJECT_ID= your_project_id
+**Steps to Edit the `.env` File**
+1. **Locate the `.env` File:**
+   - After cloning the repository, navigate to the folder where the `.env` file is stored.
+
+2. **Open the `.env` File:**
+   - **On Windows:**
+     - Use Notepad:
+       - Right-click on the `.env` file and select **Open With** > **Notepad**.
+     - Use Visual Studio Code (if installed):
+       - Right-click on the `.env` file and choose **Open With Code**.
+
+   - **On Mac/Linux:**
+     - Use the built-in `nano` editor:
+       ```bash
+       nano .env
+       ```
+     - Or open with a GUI editor like TextEdit on macOS or Gedit on Linux.
+
+3. **Edit the File:**
+   - Update the values for the environment variables, such as API keys, service URLs, or any other credentials:
+     
+        - SPEECH_TO_TEXT_API_KEY= your_speech_to_text_api_key
+        - SPEECH_TO_TEXT_URL= your_speech_to_text_url
+        - WATSONX_API_KEY= your_watsonx_api_key
+        - WATSONX_URL= your_watsonx_url
+        - PROJECT_ID= your_project_id
+
+
+
+4. **Save the File:**
+   - After editing, save the file in the same `.env` format. Ensure there are no extra spaces or formatting issues.
+
 
 **Build the Docker image:**
-
-`docker build -t watson-keynotes .`
-
+```bash
+docker build -t watson-keynotes .
+```
 **Run the Docker container:**
-
-`docker run -p 5000:5000 watson-keynotes`
-
+```bash
+docker run -p 5000:5000 watson-keynotes
+```
 **Note:** The next time you want to run the application without opening VS just open Docker the run the above command in your local terminal. Use the same link to access the application. 
 
 Access the app on `http://localhost:5000` in your browser.
