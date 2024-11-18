@@ -35,7 +35,7 @@ Update the .env file with your own credentials:
 
 `docker run -p 5000:5000 watson-keynotes`
 
-**Note:** The next time you want to run the application without opening VS or Docker just run the above command in your local terminal, the use the the same link to access the application. 
+**Note:** The next time you want to run the application without opening VS just open Docker the run the above command in your local terminal. Use the same link to access the application. 
 
 Access the app on `http://localhost:5000` in your browser.
 
