@@ -5,13 +5,13 @@ Watson-KeyNotes is a Flask-based application designed to help users get a compre
 
 # Instructions for Running the application locally
 
-## Requirements
+**Pre-requisites:**
 
 To run this application, you need the following installed on your system:
-
-- Python 3.11
-- Docker
-- Git (optional)
+- Create an IBM Cloud account if you don't have one.
+- Install Docker on your machine.
+- Install Python 3.11 on your machine.
+- Install Git on your machine.
 
 **Clone the repository:** 
 
@@ -19,8 +19,7 @@ To run this application, you need the following installed on your system:
 git clone https://github.com/KhomotsoS23/AI-Solutions.git 
 cd AI-Solutions
 ```
-
-Update the .env file with your own credentials: 
+**Update the .env file with your own credentials:** 
 
 **Steps to Edit the `.env` File**
 1. **Locate the `.env` File:**
@@ -49,11 +48,42 @@ Update the .env file with your own credentials:
         - WATSONX_URL= your_watsonx_url
         - PROJECT_ID= your_project_id
 
+**Access APIs, URLs and Project_ID**
 
+**a. Watson Speech to Text credentials:**
+
+- Go to IBM Cloud and search for Speech-to-text service, it will open up to this: 
+![Reference Image](/images/Screenshot%202024-11-18%20at%2015.49.34.png)
+- Select a location and create a new instance of the service.
+- Go to Manage tab and copy the API key and URL and paste it in the `.env` file.
+![Reference Image](/images/Screenshot%202024-11-18%20at%2014.56.16.png)
+
+**b. Watsonx.ai credentials:**
+- On IBM Cloud search for Watsonx.ai service and the search will return a list similar to the following. Click watsonx.
+![Reference Image](/images/Screenshot%202024-11-18%20at%2019.20.48.png)
+- You will now see the AI and data platform page. click get started on watsonx.ai tile, select location and login with your w3id.
+- Watsonx.ai console will open up. Click on the hamburger icon on the top left corner and select project.
+- View all projects , select new project and give your project a name and click create.
+- select the Chat and build prompts with foundation models tile 
+- If asked to associate service, select associate service and the servece provided and click associate.
+- Click overview and select the Chat and build prompts with foundation models tile again. 
+- Select view code 
+![Reference Image](/images/Screenshot%202024-11-18%20at%2019.38.13.png)
+- Copy the project_id and url, and paste it in the .env file.
+![Refernce Image](/images/Watsonx-url&pid.png)
+- Click the huamburger icon on the top left corner and select Access(IAM) under administration :
+![Refernce Image](/images/Screenshot%202024-11-18%20at%2019.51.59.png)
+- The Manage access and users panel page will open. Find and select the API keys item from the left-hand panel, create a new API key and copy the API key and pase it in the .env file.
+![Refernce Image](/images/Screenshot%202024-11-18%20at%2019.53.20.png)
+Note: It is recommended that you download your key. This key will be downloaded to
+a file called apikey.json. You might want to rename this file to ensure you
+remember what it is. If necessary, you can always create another API key.
 
 4. **Save the File:**
-   - After editing, save the file in the same `.env` format. Ensure there are no extra spaces or formatting issues.
+   - After editing, save and overwrite. Ensure there are no extra spaces or formatting issues.
 
+Make sure you in the correct dictory before running the below commands.
+If not run  `cd AI-Solutions` in the terminal first.
 
 **Build the Docker image:**
 ```bash
@@ -63,7 +93,7 @@ docker build -t watson-keynotes .
 ```bash
 docker run -p 5000:5000 watson-keynotes
 ```
-**Note:** The next time you want to run the application without opening VS just open Docker the run the above command in your local terminal. Use the same link to access the application. 
+**Note:** The next time you want to run the application without opening VS just open Docker the run the above command in your local terminal. Use the same link to access the application, you can even bookmark the link and open it after running the command. 
 
 Access the app on `http://localhost:5000` in your browser.
 
