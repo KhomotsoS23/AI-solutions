@@ -48,7 +48,7 @@ cd AI-Solutions
         - WATSONX_URL= your_watsonx_url
         - PROJECT_ID= your_project_id
 
-**Access APIs, URLs and Project_ID**
+**Access your credentials: APIs, URLs and Project_ID**
 
 **a. Watson Speech to Text credentials:**
 
