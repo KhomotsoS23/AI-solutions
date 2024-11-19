@@ -80,11 +80,11 @@ cd AI-Solutions
 
 - Copy the project_id and url, and paste it in the .env file.
 
-<img src="/images/Watsonx-url&pid.png" width=500px hight=500px >
+<img src="/images/Watsonx-url&pid.png" width=500px hight=300px >
 
 - Click the huamburger icon on the top left corner and select Access(IAM) under administration :
 
-<img src="/images/Screenshot%202024-11-18%20at%2019.51.59.png" width=500px hight=500px >
+<img src="/images/Screenshot%202024-11-18%20at%2019.51.59.png" width=500px hight=100px >
 
 - The Manage access and users panel page will open. Find and select the API keys item from the left-hand panel, create a new API key and copy the API key and pase it in the .env file.
 
