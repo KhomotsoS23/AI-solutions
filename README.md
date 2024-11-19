@@ -55,14 +55,19 @@ cd AI-Solutions
 **a. Watson Speech to Text credentials:**
 
 - Go to IBM Cloud and search for Speech-to-text service, it will open up to this: 
-<img src="/images/Screenshot%202024-11-18%20at%2015.49.34.png" width=100px hight=100 >
+
+<img src="/images/Screenshot%202024-11-18%20at%2015.49.34.png" width=500px hight=500 >
+
 - Select a location and create a new instance of the service.
 - Go to Manage tab and copy the API key and URL and paste it in the `.env` file.
-![Reference Image](/images/Screenshot%202024-11-18%20at%2014.56.16.png)
+
+<img src="/images/Screenshot%202024-11-18%20at%2014.56.16.png" width=500px hight=500 >
 
 **b. Watsonx.ai credentials:**
 - On IBM Cloud search for Watsonx.ai service and the search will return a list similar to the following. Click watsonx.
-![Reference Image](/images/Screenshot%202024-11-18%20at%2019.20.48.png)
+
+<img src="/images/Screenshot%202024-11-18%20at%2019.20.48.png" width=500px hight=500 >
+
 - You will now see the AI and data platform page. click get started on watsonx.ai tile, select location and login with your w3id.
 - Watsonx.ai console will open up. Click on the hamburger icon on the top left corner and select project.
 - View all projects , select new project and give your project a name and click create.
@@ -70,13 +75,21 @@ cd AI-Solutions
 - If asked to associate service, select associate service and the servece provided and click associate.
 - Click overview and select the Chat and build prompts with foundation models tile again. 
 - Select view code 
-![Reference Image | hight=100](/images/Screenshot%202024-11-18%20at%2019.38.13.png)
+
+<img src="/images/Screenshot%202024-11-18%20at%2019.38.13.png" width=500px hight=500 >
+
 - Copy the project_id and url, and paste it in the .env file.
-![Refernce Image | hight=150](/images/Watsonx-url&pid.png)
+
+<img src="/images/Watsonx-url&pid.png" width=500px hight=500 >
+
 - Click the huamburger icon on the top left corner and select Access(IAM) under administration :
-![Refernce Image](/images/Screenshot%202024-11-18%20at%2019.51.59.png)
+
+<img src="/images/Screenshot%202024-11-18%20at%2019.51.59.png" width=500px hight=500 >
+
 - The Manage access and users panel page will open. Find and select the API keys item from the left-hand panel, create a new API key and copy the API key and pase it in the .env file.
-![Refernce Image](/images/Screenshot%202024-11-18%20at%2019.53.20.png)
+
+<img src="/images/Screenshot%202024-11-18%20at%2019.53.20.png" width=500px hight=500 >
+
 Note: It is recommended that you download your key. This key will be downloaded to
 a file called apikey.json. You might want to rename this file to ensure you
 remember what it is. If necessary, you can always create another API key.
