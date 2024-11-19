@@ -76,7 +76,7 @@ cd AI-Solutions
 - Click overview and select the Chat and build prompts with foundation models tile again. 
 - Select view code 
 
-<img src="/image/Screenshot%202024-11-18%20at%2019.47.58.png" width=500px hight=500 >
+<img src="/images/Screenshot%202024-11-18%20at%2019.38.13.png" width=500px hight=500 >
 
 - Copy the project_id and url, and paste it in the .env file.
 
