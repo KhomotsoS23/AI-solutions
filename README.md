@@ -76,7 +76,7 @@ cd AI-Solutions
 - Click overview and select the Chat and build prompts with foundation models tile again. 
 - Select view code 
 
-<img src="/images/Screenshot%202024-11-18%20at%2019.38.13.png" width=500px hight=500 >
+<img src="/images/viewcode.png" width=500px hight=500 >
 
 - Copy the project_id and url, and paste it in the .env file.
 
@@ -110,13 +110,14 @@ docker run -p 5000:5000 watson-keynotes
 ```
 **Note:** The next time you want to run the application without opening VS just open Docker the run the above command in your local terminal. Use the same link to access the application, you can even bookmark the link and open it after running the command. 
 
-Access the app on `http://localhost:5000` in your browser.
+Access the app on <http://localhost:5000> in your browser.
 
 This is what you should see when you open the application : 
 
 ![Reference Image](/images/Screenshot%202024-11-17%20at%2015.20.51.png)
 
-To run the application :
+To see how the application works, you can download and watch a short video demostration below :
+<https://github.com/KhomotsoS23/AI-solutions/blob/main/Demo/Watson-KeyNotes%20Demo.mp4>
 
 
 # Features
