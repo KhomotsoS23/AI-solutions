@@ -78,6 +78,10 @@ cd AI-Solutions
 
 <img src="/image/viewcode.png" width=500px hight=500 >
 
+- Select python and copy the code and paste it in the `.env` file.
+
+<img src="/images/Screenshot%202024-11-18%20at%2019.49.08.png" width=500px hight=300 >
+
 - Copy the project_id and url, and paste it in the .env file.
 
 <img src="/images/Watsonx-url&pid.png" width=300px hight=300px >
