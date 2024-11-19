@@ -76,7 +76,7 @@ cd AI-Solutions
 - Click overview and select the Chat and build prompts with foundation models tile again. 
 - Select view code 
 
-<img src="/images/Screenshot%202024-11-18%20at%2019.38.13.png" width=500px hight=500 >
+<img src="/image/viewcode.png" width=500px hight=500 >
 
 - Copy the project_id and url, and paste it in the .env file.
 
@@ -117,9 +117,7 @@ This is what you should see when you open the application :
 ![Reference Image](/images/Screenshot%202024-11-17%20at%2015.20.51.png)
 
 To run the application :
-- you can choose the type of input you have (manual text or audio)
-- if you choose manual text, you can input your text and click on the "Submit" button to get the insights
-- if you choose audio, you can record your audio and click on the "Submit" button to get the insights
+<iframe width="560" height="315" src="/Demo/Watson-Keynotes Demo.mp4" title="Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 # Features
 
