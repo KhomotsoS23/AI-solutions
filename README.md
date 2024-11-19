@@ -117,6 +117,7 @@ This is what you should see when you open the application :
 ![Reference Image](/images/Screenshot%202024-11-17%20at%2015.20.51.png)
 
 To see how the application works, you can download and watch a short video demostration below :
+
 <https://github.com/KhomotsoS23/AI-solutions/blob/main/Demo/Watson-KeyNotes%20Demo.mp4>
 
 
