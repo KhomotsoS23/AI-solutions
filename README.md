@@ -15,7 +15,7 @@ To run this application, you need the following installed on your system:
 
 **Clone the repository:** 
 
-Note: run the commands in the terminal or CL of your machine.
+Note: run the commands in the terminal or CL of your machine, the installation should take you about 30 minutes or less. 
 
 ```bashh
 git clone https://github.com/KhomotsoS23/AI-Solutions.git 
