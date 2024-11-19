@@ -55,7 +55,7 @@ cd AI-Solutions
 **a. Watson Speech to Text credentials:**
 
 - Go to IBM Cloud and search for Speech-to-text service, it will open up to this: 
-![Reference Image](/images/Screenshot%202024-11-18%20at%2015.49.34.png)
+<img src="/images/Screenshot%202024-11-18%20at%2015.49.34.png" width=100px hight=100 >
 - Select a location and create a new instance of the service.
 - Go to Manage tab and copy the API key and URL and paste it in the `.env` file.
 ![Reference Image](/images/Screenshot%202024-11-18%20at%2014.56.16.png)
@@ -70,9 +70,9 @@ cd AI-Solutions
 - If asked to associate service, select associate service and the servece provided and click associate.
 - Click overview and select the Chat and build prompts with foundation models tile again. 
 - Select view code 
-![Reference Image](/images/Screenshot%202024-11-18%20at%2019.38.13.png)
+![Reference Image | hight=100](/images/Screenshot%202024-11-18%20at%2019.38.13.png)
 - Copy the project_id and url, and paste it in the .env file.
-![Refernce Image](/images/Watsonx-url&pid.png)
+![Refernce Image | hight=150](/images/Watsonx-url&pid.png)
 - Click the huamburger icon on the top left corner and select Access(IAM) under administration :
 ![Refernce Image](/images/Screenshot%202024-11-18%20at%2019.51.59.png)
 - The Manage access and users panel page will open. Find and select the API keys item from the left-hand panel, create a new API key and copy the API key and pase it in the .env file.
