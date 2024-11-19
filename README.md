@@ -76,11 +76,7 @@ cd AI-Solutions
 - Click overview and select the Chat and build prompts with foundation models tile again. 
 - Select view code 
 
-<img src="/image/viewcode.png" width=500px hight=500 >
-
-- Select python and copy the code and paste it in the `.env` file.
-
-<img src="/images/Screenshot%202024-11-18%20at%2019.49.08.png" width=500px hight=300 >
+<img src="/image/Screenshot%202024-11-18%20at%2019.47.58.png" width=500px hight=500 >
 
 - Copy the project_id and url, and paste it in the .env file.
 
@@ -121,7 +117,7 @@ This is what you should see when you open the application :
 ![Reference Image](/images/Screenshot%202024-11-17%20at%2015.20.51.png)
 
 To run the application :
-<iframe width="560" height="315" src="/Demo/Watson-Keynotes Demo.mp4" title="Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 
 # Features
 
