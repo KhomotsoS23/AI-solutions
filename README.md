@@ -82,7 +82,7 @@ cd AI-Solutions
 
 <img src="/images/Watsonx-url&pid.png" width=300px hight=300px >
 
-- Click the huamburger icon on the top left corner and select Access(IAM) under administration :
+- Click the huamburger icon on the top left corner, under administration  select Access(IAM) :
 
 <img src="/images/Screenshot%202024-11-18%20at%2019.51.59.png" width=200px hight=200px >
 
@@ -112,7 +112,7 @@ docker run -p 5000:5000 watson-keynotes
 
 Access the app on <http://localhost:5000> in your browser.
 
-This is what you should see when you open the application : 
+This is what you should see when you open the application: 
 
 ![Reference Image](/images/Screenshot%202024-11-17%20at%2015.20.51.png)
 

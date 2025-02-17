@@ -25,9 +25,8 @@ def configure_watsonx():
         "apikey": os.getenv("WATSONX_API_KEY")
     }
     project_id = os.getenv("PROJECT_ID")
-    #"google/flan-ul2",
-	#"project_id": "e296c3dc-7e74-4482-81b5-af30fbdd40ba"
-    model_id = "ibm/granite-13b-chat-v2"
+   
+    model_id = "ibm/granite-13b-instruct-v2"
     parameters = {
         GenParams.DECODING_METHOD: "greedy",
         GenParams.MIN_NEW_TOKENS: 100,
